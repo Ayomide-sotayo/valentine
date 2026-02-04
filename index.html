@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-50vh) rotate(180deg);
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.15);
+            }
+            20%, 40% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInName {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes confetti {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .heart-float {
+            position: fixed;
+            animation: float 8s infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heartbeat {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .fade-in {
+            animation: fadeInScale 0.8s ease-out;
+        }
+
+        .name-animate {
+            animation: slideInName 0.6s ease-out;
+        }
+
+        .bounce-btn {
+            animation: bounce 2s infinite;
+        }
+
+        .confetti-piece {
+            position: fixed;
+            animation: confetti 3s ease-out forwards;
+            pointer-events: none;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #ec4899, #f43f5e, #ef4444, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        body {
+            touch-action: manipulation;
+        }
+
+        .no-button {
+            transition: all 0.3s ease;
+        }
+
+        #celebration {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 min-h-screen flex items-center justify-center p-4 overflow-hidden">
+    
+    <!-- Floating Hearts Background -->
+    <div id="hearts-container"></div>
+
+    <!-- Main Container -->
+    <div class="fade-in bg-white rounded-3xl shadow-2xl p-6 sm:p-10 md:p-12 max-w-lg w-full relative z-10">
+        
+        <!-- Main Heart Icon -->
+        <div class="text-center mb-6">
+            <span class="text-6xl sm:text-7xl md:text-8xl heartbeat inline-block">💖</span>
+        </div>
+
+        <!-- Main Question -->
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-pink-600 mb-4 sm:mb-6">
+            Will You Be My Valentine?
+        </h1>
+
+        <!-- Name Display with Cycling Animation -->
+        <div class="text-center mb-8 sm:mb-10 min-h-[80px] sm:min-h-[100px] flex items-center justify-center">
+            <p id="name-display" class="text-4xl sm:text-5xl md:text-6xl font-bold gradient-text name-animate px-2"></p>
+        </div>
+
+        <!-- Sweet Message -->
+        <p class="text-gray-700 text-base sm:text-lg md:text-xl text-center mb-8 sm:mb-10 px-2 leading-relaxed">
+            You light up my world like nobody else. 
+            <br class="hidden sm:block">
+            Will you make this Valentine's Day special?
+        </p>
+
+        <!-- Buttons Container -->
+        <div id="buttons-container" class="flex flex-col sm:flex-row gap-4 justify-center items-center relative min-h-[120px]">
+            <!-- Yes Button -->
+            <button id="yes-btn" 
+                    class="bounce-btn bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white font-bold py-4 px-10 sm:px-12 rounded-full text-xl sm:text-2xl shadow-lg transform transition hover:scale-110 active:scale-95 z-20">
+                Yes! 💕
+            </button>
+
+            <!-- No Button (moves away) -->
+            <button id="no-btn" 
+                    class="no-button bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-4 px-10 sm:px-12 rounded-full text-xl sm:text-2xl shadow-lg z-20">
+                No 😢
+            </button>
+        </div>
+
+        <!-- Small Hearts Decoration -->
+        <div class="flex justify-center gap-2 sm:gap-3 mt-8 text-2xl sm:text-3xl">
+            <span class="heartbeat" style="animation-delay: 0s;">💝</span>
+            <span class="heartbeat" style="animation-delay: 0.2s;">💗</span>
+            <span class="heartbeat" style="animation-delay: 0.4s;">💓</span>
+            <span class="heartbeat" style="animation-delay: 0.6s;">💖</span>
+        </div>
+    </div>
+
+    <!-- Celebration Overlay (Hidden initially) -->
+    <div id="celebration" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl p-8 sm:p-12 max-w-md w-full text-center fade-in">
+            <div class="text-7xl sm:text-8xl mb-6">🎉💕🎊</div>
+            <h2 class="text-3xl sm:text-4xl font-bold text-pink-600 mb-4">Yay! 🥳</h2>
+            <p class="text-xl sm:text-2xl text-gray-700 mb-6">
+                You've made me the happiest person! 
+                <br><br>
+                Can't wait to celebrate with you! 💖
+            </p>
+            <div class="text-5xl sm:text-6xl">😍🌹✨</div>
+        </div>
+    </div>
+
+    <script>
+        // Names to cycle through
+        const names = ['Ayomide', 'Oyindamola', 'Stella'];
+        let currentNameIndex = 0;
+        const nameDisplay = document.getElementById('name-display');
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const celebration = document.getElementById('celebration');
+        const buttonsContainer = document.getElementById('buttons-container');
+
+        // Create floating hearts
+        function createFloatingHeart() {
+            const heartsContainer = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            heart.className = 'heart-float text-2xl sm:text-3xl md:text-4xl';
+            heart.innerHTML = ['❤️', '💕', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        // Create hearts periodically
+        setInterval(createFloatingHeart, 800);
+        
+        // Initialize with some hearts
+        for (let i = 0; i < 8; i++) {
+            setTimeout(createFloatingHeart, i * 200);
+        }
+
+        // Cycle through names
+        function updateName() {
+            nameDisplay.classList.remove('name-animate');
+            void nameDisplay.offsetWidth; // Trigger reflow
+            nameDisplay.classList.add('name-animate');
+            nameDisplay.textContent = names[currentNameIndex];
+            currentNameIndex = (currentNameIndex + 1) % names.length;
+        }
+
+        // Start name cycling
+        updateName();
+        setInterval(updateName, 3000);
+
+        // Move "No" button away on hover and touch
+        function moveNoButton() {
+            const container = buttonsContainer.getBoundingClientRect();
+            const button = noBtn.getBoundingClientRect();
+            
+            // Calculate available space
+            const maxX = container.width - button.width - 20;
+            const maxY = container.height - button.height - 20;
+            
+            // Random position within container
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Handle both mouse and touch events
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+        
+        // Attempt to click No also moves it
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#ec4899', '#f43f5e', '#ef4444', '#f97316', '#fbbf24', '#a855f7'];
+            const shapes = ['●', '■', '▲', '★', '♥'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece text-2xl sm:text-3xl';
+                    confetti.innerHTML = shapes[Math.floor(Math.random() * shapes.length)];
+                    confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-50px';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 3500);
+                }, i * 30);
+            }
+        }
+
+        // Yes button clicked
+        yesBtn.addEventListener('click', () => {
+            createConfetti();
+            celebration.style.display = 'flex';
+            
+            // Create continuous confetti for celebration
+            const confettiInterval = setInterval(createConfetti, 1000);
+            setTimeout(() => clearInterval(confettiInterval), 5000);
+        });
+
+        // Make celebration closeable by clicking
+        celebration.addEventListener('click', (e) => {
+            if (e.target === celebration) {
+                celebration.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
